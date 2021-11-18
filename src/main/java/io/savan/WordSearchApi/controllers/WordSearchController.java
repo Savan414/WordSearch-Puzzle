@@ -1,5 +1,6 @@
 package io.savan.WordSearchApi.controllers;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import io.savan.WordSearchApi.services.WordGridService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,7 @@ public class WordSearchController {
             }
             gridToString += "\r\n";
         }
+        System.out.println(gridToString);
         return gridToString;
     }
 }
