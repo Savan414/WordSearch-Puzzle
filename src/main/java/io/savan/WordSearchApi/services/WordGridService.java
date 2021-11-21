@@ -47,10 +47,9 @@ public class WordGridService {
 
             }
         }
-
         //Select a random place in the grid with random direction to place each word
-        Collections.shuffle(coordinates);
         for(String word: words){
+            Collections.shuffle(coordinates);
             for(Coordinate coordinate: coordinates){
                 int x = coordinate.x;
                 int y = coordinate.y;
