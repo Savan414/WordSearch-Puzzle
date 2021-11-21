@@ -47,10 +47,9 @@ public class WordGridService {
 
             }
         }
-
         //Select a random place in the grid with random direction to place each word
-        Collections.shuffle(coordinates);
         for(String word: words){
+            Collections.shuffle(coordinates);
             for(Coordinate coordinate: coordinates){
                 int x = coordinate.x;
                 int y = coordinate.y;
@@ -148,37 +147,43 @@ public class WordGridService {
             case HORIZONTAL -> {
                 if (coordinate.y + word.length() > gridSize) return false;
                 for (int i = 0; i < word.length(); i++) {
-                    if (gridContents[coordinate.x][coordinate.y + i] != '_') return false;
+                    char letter = gridContents[coordinate.x][coordinate.y + i];
+                    if (letter != '_' &&  letter != word.charAt(i)) return false;
                 }
             }
             case VERTICAL -> {
                 if (coordinate.x + word.length() > gridSize) return false;
                 for (int i = 0; i < word.length(); i++) {
-                    if (gridContents[coordinate.x + i][coordinate.y] != '_') return false;
+                    char letter = gridContents[coordinate.x + i][coordinate.y];
+                    if (letter != '_' && letter != word.charAt(i)) return false;
                 }
             }
             case DIAGONAL -> {
                 if (coordinate.y + word.length() > gridSize || coordinate.x + word.length() > gridSize) return false;
                 for (int i = 0; i < word.length(); i++) {
-                    if (gridContents[coordinate.x + i][coordinate.y + i] != '_') return false;
+                    char letter = gridContents[coordinate.x + i][coordinate.y + i];
+                    if (letter != '_' && letter != word.charAt(i)) return false;
                 }
             }
             case HORIZONTAL_INVERSE -> {
                 if (coordinate.y < word.length()) return false;
                 for (int i = 0; i < word.length(); i++) {
-                    if (gridContents[coordinate.x][coordinate.y - i] != '_') return false;
+                    char letter = gridContents[coordinate.x][coordinate.y - i];
+                    if (letter != '_' && letter != word.charAt(i)) return false;
                 }
             }
             case VERTICAL_INVERSE -> {
                 if (coordinate.x < word.length()) return false;
                 for (int i = 0; i < word.length(); i++) {
-                    if (gridContents[coordinate.x - i][coordinate.y] != '_') return false;
+                    char letter = gridContents[coordinate.x - i][coordinate.y];
+                    if (letter != '_' && letter != word.charAt(i)) return false;
                 }
             }
             case DIAGONAL_INVERSE -> {
                 if (coordinate.y < word.length() || coordinate.x < word.length()) return false;
                 for (int i = 0; i < word.length(); i++) {
-                    if (gridContents[coordinate.x - i][coordinate.y - i] != '_') return false;
+                    char letter = gridContents[coordinate.x - i][coordinate.y - i];
+                    if (letter != '_' && letter != word.charAt(i)) return false;
                 }
             }
         }

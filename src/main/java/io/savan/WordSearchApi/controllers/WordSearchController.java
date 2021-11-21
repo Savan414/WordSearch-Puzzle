@@ -1,9 +1,11 @@
 package io.savan.WordSearchApi.controllers;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import io.savan.WordSearchApi.services.WordGridService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RestController("/")
@@ -13,8 +15,10 @@ public class WordSearchController {
    WordGridService wordGridService;
 
     @GetMapping("/wordgrid")
-    public String createWordGrid(@RequestParam int gridSize, @RequestParam List<String> words){
+    @CrossOrigin(origins = "http://localhost:1234")
+    public String createWordGrid(@RequestParam int gridSize, @RequestParam String wordList){
 
+        List<String> words = Arrays.asList(wordList.split(","));
         char[][] grid = wordGridService.generateGrid(gridSize, words);
         String gridToString = "";
 
@@ -24,6 +28,7 @@ public class WordSearchController {
             }
             gridToString += "\r\n";
         }
+        System.out.println(gridToString);
         return gridToString;
     }
 }
